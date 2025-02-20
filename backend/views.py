@@ -1,7 +1,10 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
-from .models import LoginDetails
+from django.contrib.auth.hashers import make_password
+from .models import CustomUser, LoginDetails
+from django.contrib import messages
+
 
 
 def welcome(request):
@@ -12,24 +15,45 @@ def welcome(request):
 def SignupView(request):
     """Handles signup form submission"""
     if request.method == "POST":
-        username = request.POST["username"]
-        password = request.POST["password"]
+        username = request.POST.get("username", "").strip()
+        password = request.POST.get("password", "").strip()
+        first_name = request.POST.get("first_name", "").strip()
+        last_name = request.POST.get("last_name", "").strip()
+        email = request.POST.get("email", "").strip()
+        phone_number = request.POST.get("phone_number", "").strip()
+        monthly_budget = request.POST.get("monthly_budget", "0").strip()
+        currency = request.POST.get("currency", "INR").strip()
 
-        if User.objects.filter(username=username).exists():
+        if not username:
+            return render(request, "newuser.html", {"signup_error": "Username is required!"})
+
+        if CustomUser.objects.filter(username=username).exists():
             return render(request, "welcome.html", {"signup_error": "Username already exists"})
 
-        user = CustomUser.objects.create_user(username=username, password=password)
-        LoginDetails.objects.create(user=user, username=username, password=password)  # Store in LoginDetails
-        return redirect("welcome")
+        user = CustomUser.objects.create_user(
+            username=username,
+            password=password,
+            first_name=first_name,
+            last_name=last_name,
+            email=email,
+            phone_number=phone_number,
+            monthly_budget=monthly_budget,
+            currency=currency
+        )
 
-    return redirect("welcome")
+        LoginDetails.objects.create(user=user, username=username, password=make_password(password))
+
+        messages.success(request, "Signup successful! Please log in.")
+        return redirect("login")
+
+    return render(request, "newuser.html")
 
 
 def LoginView(request):
     """Handles login form submission"""
     if request.method == "POST":
-        username = request.POST["username"]
-        password = request.POST["password"]
+        username = request.POST.get("username", "").strip()
+        password = request.POST.get("password", "").strip()
 
         user = authenticate(request, username=username, password=password)
         if user:
