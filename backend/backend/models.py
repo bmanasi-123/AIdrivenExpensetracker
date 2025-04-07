@@ -7,6 +7,7 @@ class CustomUser(AbstractUser):
     Extends Django's default user model to store additional user data.
     Fixes clashes by adding `related_name` to `groups` and `user_permissions`.
     """
+    email = models.EmailField(unique=True)
     phone_number = models.CharField(max_length=15, blank=True, null=True, unique=True)  # For SMS alerts
     monthly_budget = models.FloatField(default=0.0)  # Used to trigger overspending alerts
     currency = models.CharField(max_length=5, default="INR")  # Supports multi-currency (e.g., USD, EUR)
@@ -16,6 +17,11 @@ class CustomUser(AbstractUser):
         choices=[("SMS", "SMS"), ("Email", "Email"), ("Both", "Both")],
         default="Both"
     )
+    
+
+    USERNAME_FIELD = "username"  
+    REQUIRED_FIELDS = ["email"]  
+
 
     groups = models.ManyToManyField(
             "auth.Group",
