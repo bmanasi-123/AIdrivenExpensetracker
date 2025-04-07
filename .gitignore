@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.py[cod]
+*.sqlite3
+*.log
+
+# Env
+.env
+venv/
+env/
+*.egg-info/
+
+# VS Code
+.vscode/
+
+# PyCharm
+.idea/
+
+# Migrations
+*/migrations/__pycache__/
+*.pyc
