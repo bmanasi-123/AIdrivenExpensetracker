@@ -86,3 +86,29 @@ def homeView(request):
 def logoutView(request):
     logout(request)
     return redirect("login")
+
+def updateProfile(request):
+    """Handles profile update form submission"""
+    if request.method == "POST":
+        first_name = request.POST.get("first_name", "").strip()
+        last_name = request.POST.get("last_name", "").strip()
+        email = request.POST.get("email", "").strip()
+        phone_number = request.POST.get("phone_number", "").strip()
+        monthly_budget = request.POST.get("monthly_budget", "0").strip()
+        currency = request.POST.get("currency", "INR").strip()
+        flag = request.POST.get("flag", "BOTH").strip()
+
+        user = CustomUser.objects.get(id=request.user.id)
+        user.first_name = first_name
+        user.last_name = last_name
+        user.email = email
+        user.phone_number = phone_number
+        user.monthly_budget = monthly_budget
+        user.currency = currency
+        user.preferred_alerts = flag
+        user.save()
+
+        messages.success(request, "Profile updated successfully!")
+        return redirect("home")
+
+    return render(request, "profile.html", {"user": request.user})

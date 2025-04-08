@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <!-- Custom Styles -->
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <!-- <link rel="stylesheet" href="{% static 'css/styles.css' %}"> -->
 </head>
 
 <body>
@@ -35,7 +35,7 @@
             <a href="{% url 'logout' %}" class="text-danger" title = "Logout">
                 <i class="fa-solid fa-sign-out-alt fa-lg"></i>
             </a>
-            <a href="#" class="text-dark" title="Profile">
+            <a href="{% url 'profile' %}" class="text-dark" title= "Profile">
                 <i class="fa-solid fa-user fa-lg"></i>
             </a>
         </div>
