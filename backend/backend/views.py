@@ -20,7 +20,7 @@ def signupView(request):
         password = request.POST.get("password", "").strip()
         # first_name = request.POST.get("first_name", "").strip()
         # last_name = request.POST.get("last_name", "").strip()
-        email = request.POST.get("email", "").strip()
+        # email = request.POST.get("email", "").strip()
         phone_number = request.POST.get("phone_number", "").strip()
         monthly_budget = request.POST.get("monthly_budget", "0").strip()
         currency = request.POST.get("currency", "INR").strip()
@@ -33,7 +33,7 @@ def signupView(request):
             return redirect("signup")
             # return render(request, "welcome.html", {"signup_error": "Username already exists"})
 
-        if CustomUser.objects.filter(Q(phone_number=phone_number) | Q(email=email)).exists():
+        if CustomUser.objects.filter(Q(phone_number=phone_number) | Q(email=username)).exists():
             messages.error(request, "An account with this phone number or email already exists. Please login.")
             return redirect("signup")  
 
@@ -45,7 +45,7 @@ def signupView(request):
             password=password,
             # first_name=first_name,
             # last_name=last_name,
-            email=email,
+            email=username,
             phone_number=phone_number,
             monthly_budget=monthly_budget,
             currency=currency

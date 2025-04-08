@@ -29,11 +29,15 @@
             color: white;
             width: 100%;
         }
+        ::placeholder {
+        color: #e7e1e1;  
+        opacity: 1;   
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Create an Account</h1>
+        <h1>Create Account</h1>
         {% if messages %}
         {% for message in messages %}
             <div class="alert alert-{% if message.tags == 'success' %}success{% else %}danger{% endif %}">
@@ -51,34 +55,38 @@
                 <label class="form-label">Last Name:</label>
                 <input type="text" name="last_name" class="form-control" required>
             </div> -->
+            
             <div class="mb-3">
-                <label class="form-label">Username:</label>
-                <input type="text" name="username" class="form-control" required>
+                <label class="form-label">Username (Email):</label>
+                <input type="email" name="username" class="form-control" placeholder="Enter your email address" required>
             </div>
+        
             <div class="mb-3">
                 <label class="form-label">Password:</label>
-                <input type="password" name="password" class="form-control" autocomplete="new-password" required>
+                <input type="password" name="password" class="form-control" autocomplete="new-password" 
+                       placeholder="Must contain numbers and alphabets" required>
             </div>
-            <div class="mb-3">
+            <!-- <div class="mb-3">
                 <label class="form-label">Email:</label>
                 <input type="email" name="email" class="form-control" required>
-            </div>
+            </div> -->
             <div class="mb-3">
                 <label class="form-label">Phone Number:</label>
-                <input type="text" name="phone_number" class="form-control" required>
+                <input type="text" name="phone_number" class="form-control" placeholder="Enter your phone number" required>
             </div>
+        
             <div class="mb-3">
                 <label class="form-label">Budget (Per Month):</label>
-                <input type="number" name="monthly_budget" class="form-control" required>
+                <input type="number" name="monthly_budget" class="form-control" placeholder="Enter monthly budget" required>
             </div>
             <div class="mb-3">
                 <label class="form-label">Currency:</label>
-                <select name="currency" class="form-control">
+                <select name="currency" class="form-control" style="appearance: auto; -webkit-appearance: auto;">
                     <option value="USD">USD ($)</option>
                     <option value="EUR">EUR (€)</option>
                     <option value="INR" selected>INR (₹)</option>
                 </select>
-            </div>
+            </div>            
             <button type="submit" class="btn btn-signup">Sign Up</button>
 
             <div class="field" style="display: flex; flex-direction: column; align-items: center; text-align: center;">

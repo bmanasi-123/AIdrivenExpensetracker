@@ -1,7 +1,6 @@
 import os
 import django
 from django.core.asgi import get_asgi_application
-from expenseApp.main import app as expenseapp  # Import FastAPI app
 from starlette.middleware.wsgi import WSGIMiddleware
 from starlette.routing import Mount
 from starlette.applications import Starlette
@@ -15,7 +14,7 @@ django_asgi_app = get_asgi_application()
 # Combine Django and FastAPI inside Starlette
 application = Starlette(
     routes=[
-        Mount("/fastapi", app=expenseapp),  # ✅ FastAPI should now be mounted at /fastapi
+        # Mount("/fastapi", app=expenseapp),  # ✅ FastAPI should now be mounted at /fastapi
         Mount("/", app=WSGIMiddleware(django_asgi_app)),  # ✅ Django handles everything else
     ]
 )

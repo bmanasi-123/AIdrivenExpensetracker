@@ -1,0 +1,27 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    text-align: center;
+    padding: 50px;
+}
+.container {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    display: inline-block;
+    max-width: 500px;
+    text-align: left;
+}
+h1 {
+    color: #007bff;
+}
+.btn-signup {
+    background-color: #28a745;
+    color: white;
+    width: 100%;
+}
+input::placeholder {
+color: #e7e1e1;  
+opacity: 1;   
+}
